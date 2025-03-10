@@ -9,8 +9,7 @@ services:
     tty: true
     volumes:
       - ./node:/usr/src/app
-    ports:
-      - "3000:3000"
+    # Remove exposing port 3000 directly as it will be accessed through nginx
     networks:
       - node-network
     depends_on:
@@ -29,6 +28,19 @@ services:
       MYSQL_ROOT_PASSWORD: root
     networks:
       - node-network
+      
+  nginx:
+    build:
+      context: nginx
+    container_name: nginx
+    restart: always
+    tty: true
+    ports:
+      - "8080:80"
+    networks:
+      - node-network
+    depends_on:
+      - app
   
 networks:
   node-network:
