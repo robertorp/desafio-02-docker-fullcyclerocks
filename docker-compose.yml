@@ -9,7 +9,7 @@ services:
     tty: true
     volumes:
       - ./node:/usr/src/app
-    # Remove exposing port 3000 directly as it will be accessed through nginx
+      - /usr/src/app/node_modules
     networks:
       - node-network
     depends_on:

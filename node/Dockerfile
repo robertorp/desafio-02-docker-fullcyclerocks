@@ -14,9 +14,12 @@ RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSI
     && tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
     && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
 
+# Copy package files and install dependencies
 COPY package*.json ./
+COPY index.js ./
 RUN npm install
 
+# Copy the rest of the application
 COPY . .
 
 EXPOSE 3000
